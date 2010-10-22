@@ -1,4 +1,6 @@
-# Django settings for mysite project.
+# Django settings for djangobook project.
+
+import os.path
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -58,7 +60,7 @@ MEDIA_URL = ''
 ADMIN_MEDIA_PREFIX = '/media/'
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'cw(4s^27p5vyn&-ocm@og-jis5!^i=j2wghbi*qnx6qkp1e(7@'
+SECRET_KEY = 'er^h!p%wasqy47p5g*k$^%dxjog=1rn6rgna1u3u@r7@#1cqf-'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -75,12 +77,14 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'mysite.urls'
+ROOT_URLCONF = 'djangobook.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    # '/Users/conradowen/sandbox/djangobook/templates',
+    os.path.join(os.path.dirname(__file__), 'templates').replace('\\', '/'),
 )
 
 INSTALLED_APPS = (

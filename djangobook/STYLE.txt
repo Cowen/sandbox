@@ -1,0 +1,11 @@
+This is a generic document on proper style for code:
+
+Templates:
+- Common templates should go under the folder '$PROJECT_ROOT/templates/includes'
+- Required HTML tags (DOCTYPE, <html>, ... ) should never be in common templates
+
+Views:
+- Usage of locals() and render_to_response are the norm
+    - If performance issues arise, hard-code the result of locals()
+
+
