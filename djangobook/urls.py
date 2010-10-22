@@ -1,10 +1,15 @@
 from django.conf.urls.defaults import *
+from djangobook.views import *
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+    (r'^$', homepage),
+    (r'^hello/$', hello),
+    (r'^time/$', time),
+    (r'^time/plus/(\d{1,3})/?$', hours_ahead),
     # Example:
     # (r'^djangobook/', include('djangobook.foo.urls')),
 
