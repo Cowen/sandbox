@@ -15,8 +15,7 @@ def sanitize(path):
 
 def pack(lib_xml, out_name):
     """
-    Packs the iTunes Library XML file specified by the pathname lib_xml into a .tar.gz file
-    named out_name.
+    Packs the iTunes Library XML file specified by lib_xml into a .tar.gz file named out_name.
     """
     xml = open(lib_xml)
     print 'Parsing ', lib_xml
