@@ -7,9 +7,10 @@ import tarfile
 
 def sanitize(path):
     """
-    iTunes Library XML files use something that's almost URL-encoding, but they do ;amp a little oddly
-    This will parse a line of the XML file containing the file's location, and return the file's full
-    pathname
+    Parse a line of the XML file containing the file's location, and return the file's full
+    pathname.
+    
+    Super ugly, would refactor it if I ever needed to change it. But I don't, and it works.
     """
     return urllib.url2pathname('/' + path.lstrip().lstrip("<key>Location</key><string>file://localhost").rstrip().rstrip("</string>")).replace("&#38;", '&')
 
