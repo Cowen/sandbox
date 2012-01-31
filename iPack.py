@@ -5,6 +5,9 @@ import zipfile
 import urllib
 import tarfile
 
+""" This was a quick little script I wrote to copy files from an iTunes playlist xml file
+    and wrap them all up in a gzipped tarball. """
+
 def sanitize(path):
     """
     Parse a line of the XML file containing the file's location, and return the file's full
