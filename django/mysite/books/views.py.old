@@ -1,0 +1,6 @@
+from django.shortcuts import render_to_response as r2r
+from models import Publisher
+
+def publishers(request):
+    publishers = Publisher.objects.all()
+    return r2r('publishers.html', locals())
