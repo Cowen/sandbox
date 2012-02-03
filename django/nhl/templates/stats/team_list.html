@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>NHL Teams</title>
+        <link rel="stylesheet" type="text/css" href="../static/team_list.css" />
+    </head>
+    <body>
+        <h2>Teams</h2>
+        <table id="team_table">
+            <thead>
+                <tr>
+                    <td>Shorthand</td>
+                    <td>Full name</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for team in object_list %}
+                    <tr>
+                        <td>{{ team.name }}</td>
+                        <td>{{ team.full_name }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>
