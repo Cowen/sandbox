@@ -1,3 +1,5 @@
+import Control.Parallel
+
 doubleMe x = x + x
 
 doubleUs x y = doubleMe x + doubleMe y
@@ -46,9 +48,13 @@ cylinder r h =
 max' :: (Ord a) => [a] -> a
 max' []     = error "Max of empty list"
 max' [x]    = x
-max' (x:xs) | x > maxTail = x
-            | otherwise = maxTail
-            where maxTail = max' xs
+max' (x:xs) = max x (max' xs)
+
+quicksort []        = []
+quicksort (x:xs)    =
+    let smaller = quicksort [a | a <- xs, a <= x]
+        bigger  = quicksort [a | a <- xs, a > x]
+    in smaller ++ [x] ++ bigger
 
 onlyVowels :: String -> String
 onlyVowels "" = ""
@@ -87,4 +93,44 @@ palindrome (x:xs)   = [x] ++ palindrome xs ++ [x]
 isPalindrome :: (Eq a) => [a] -> Bool
 isPalindrome []     = True
 isPalindrome [x]    = True
-isPalindrome (x:xs) = (isPalindrome xs)
+isPalindrome xs = xs == (reverse xs)
+
+isFactor a b = a `mod` b == 0
+
+factors a = filter (isFactor a) [2..(a `div` 2)]
+
+coprime a b = (gcd a b) == 1
+
+isPrime :: (Integral a) => a -> Bool
+isPrime n | n < 6 = (n > 1) && (n /= 4)
+isPrime n = all ((/=0).mod n) $ 2:3:5:[x + i | x <- [6,12..s], i <- [-1,1]]
+            where s = floor $ sqrt $ fromIntegral n
+
+-- Not recommended for serious use
+primeFactors n
+    | isPrime n = [1,n]
+    | otherwise = 1:[ x | x <- (factors n), isPrime x ] 
+
+-- The next value in a Collatz sequence
+collatz n
+    | even n    = n `div` 2     -- Using (/) requires Fractional type
+    | otherwise = 3 * n + 1
+
+collatzSeq 1 = [1]
+collatzSeq n = n:(collatzSeq next)
+    where next = collatz n
+
+-- Faster way to find length of a Collatz sequence
+collatzLen l 1 = l
+collatzLen l n = collatzLen (l+1) (collatz n)
+
+-- Exhaustively prove that the Collatz sequence
+-- starting with any number between 1 and `n` ends with 1
+-- Fun fact: This one line can prove the Collatz conjecture
+-- up to n == 100K in ~35s on a Macbook Pro
+exhaustCollatz n = all ((==1) . last) [ collatzSeq x | x <- [1..n] ]
+-- With foldl (slower)
+-- exhaustCollatz n = foldl (&&) True [ (last (collatzSeq x)) == 1 | x <- [1..n] ]
+
+-- Given a Collatz sequence, does the Collatz conjecture hold?
+collatzHolds cs = all ((==1) . last) cs
