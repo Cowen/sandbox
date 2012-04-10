@@ -17,8 +17,7 @@ def sanitize(path):
     """
     return urllib.url2pathname(
                 '/' + path.lstrip().lstrip("<key>Location</key><string>file://localhost")
-                .rstrip().rstrip("</string>"))
-                .replace("&#38;", '&')
+                .rstrip().rstrip("</string>")).replace("&#38;", '&')
 
 def pack(lib_xml, out_name):
     """
@@ -44,7 +43,7 @@ def pack(lib_xml, out_name):
             tar.close()
     tar.close()
 
-if __name__ == __main__:
+if __name__ == '__main__':
     if len(sys.argv) != 3:
         print 'Usage: iPack.py <iTunes_Library_xml_file> <output_filename>'
     else:
