@@ -10,7 +10,9 @@ import datetime as dt
 def format_date(datestr):
     return dt.datetime.strptime(datestr.replace('\'',''), '%b %d %y').date()
 
-def toNum(stat):
+# Where possible, convert strings to numeric types.
+# Otherwise return the original string.
+def strToNum(stat):
     try:
         return int(stat)
     except ValueError:
@@ -36,9 +38,8 @@ def scrape(url):
             gamestr = tr_text[0]
             date = format_date(gamestr.split('\n')[1])
             teams = gamestr.split('\n')[3]
-
-            # Convert strings to numeric types
-            tds = [ toNum for td in tr_text[1:] ]
+            
+            tds = [ strToNum(td) for td in tr_text[1:] ]
 
             # Team strings end in "*" if this player scored the game-winning goal
             gwg = False
